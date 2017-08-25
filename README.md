@@ -13,4 +13,5 @@ This project is currently in progress
 ## Resources
 
 Opensecrets.org [https://www.opensecrets.org/]
+
 OpenSecrets API Docs [https://www.opensecrets.org/resources/create/api_doc.php]
