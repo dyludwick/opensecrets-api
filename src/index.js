@@ -18,9 +18,10 @@ class OpenSecretsCall {
   }
 
   fetchData() {
-    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=json&id${this.params}`;
+    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=json&id=${this.params}`;
     console.log(url);
   }
 }
 
-const getLegislators = new OpenSecretsCall
+const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
+getLegislators.fetchData();
