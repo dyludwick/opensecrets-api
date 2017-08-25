@@ -23,10 +23,18 @@ class OpenSecretsCall {
     this.baseurl = 'http://www.opensecrets.org/api/';
   }
 
+  // Init url
+  initUrl() {
+    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=json`;
+    for (var prop in this.params) {
+      url += `&${prop}=${this.params[prop]}`;
+    }
+    console.log(`url: ${url}`);
+    return url;
+  }
+
   fetchData() {
-    // Set url
-    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=json&id=${this.params}`;
-    console.log(url);
+    let url = this.initUrl();
 
     // Handle response status
     const status = (response) => {
@@ -56,5 +64,9 @@ class OpenSecretsCall {
 }
 
 // Test api call
-const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
-getLegislators.fetchData();
+
+// const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
+// getLegislators.fetchData();
+
+const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+candSummary.fetchData();
