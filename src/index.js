@@ -28,16 +28,33 @@ class OpenSecretsCall {
     let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=json&id=${this.params}`;
     console.log(url);
 
+    // Handle response status
+    const status = (response) => {
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText));
+      }
+    }
+
+    // Handle response JSON parsing
+    const json = (response) => {
+      return response.json();
+    }
+
+    // Request data
     fetch(url)
-    .then((response) => response.json())
+    .then(status)
+    .then(json)
     .then((data) => {
-      console.log(data);
+      console.log(`Request succeeded, \n${data}`);
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Request failed, \n${err}`);
     });
   }
 }
 
+// Test api call
 const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
 getLegislators.fetchData();
