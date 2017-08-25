@@ -1,0 +1,15 @@
+{
+  "name": "opensecrets-api",
+  "version": "1.0.0",
+  "description": "simple javascript library for the CPR OpenSecrets API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "opensecrets",
+    "api"
+  ],
+  "author": "Dylan Ross Ludwick",
+  "license": "ISC"
+}
