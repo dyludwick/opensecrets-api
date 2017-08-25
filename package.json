@@ -4,6 +4,9 @@
   "description": "simple javascript library for the CPR OpenSecrets API",
   "main": "index.js",
   "scripts": {
+    "build": "npm run clean && mkdirp dist && babel src -d dist",
+    "clean": "rimraf dist",
+    "start": "npm run build && node dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,5 +14,14 @@
     "api"
   ],
   "author": "Dylan Ross Ludwick",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
 }
