@@ -31,18 +31,21 @@ class OpenSecretsCall {
   // Initiate url
   initUrl() {
     // Call checkApiKey()
+    let apikey;
     try {
-      const apikey = this.checkApiKey(this.apikey);
+      apikey = this.checkApiKey(this.apikey);
     } catch (e) {
       console.log(`${e.name} : ${e.message}`);
     }
-
-    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=${this.output}`;
-    for (var prop in this.params) {
-      url += `&${prop}=${this.params[prop]}`;
+    // Build url
+    if (apikey) {
+      let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=${this.output}`;
+      for (var prop in this.params) {
+        url += `&${prop}=${this.params[prop]}`;
+      }
+      console.log(`url: ${url}`);
+      return url;
     }
-    console.log(`url: ${url}`);
-    return url;
   }
 
   // Get the data
@@ -64,15 +67,17 @@ class OpenSecretsCall {
     }
 
     // Fetch API
-    fetch(url)
-    .then(status)
-    .then(json)
-    .then((data) => {
-      console.log(`Request succeeded, \n${data}`);
-    })
-    .catch((err) => {
-      console.log(`Request failed, \n${err}`);
-    });
+    if (typeof url !== 'undefined') {
+      fetch(url)
+      .then(status)
+      .then(json)
+      .then((data) => {
+        console.log(`Request succeeded, \n${data}`);
+      })
+      .catch((err) => {
+        console.log(`Request failed, \n${err}`);
+      });
+    }
   }
 }
 
