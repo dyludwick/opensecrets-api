@@ -40,7 +40,7 @@ class OpenSecretsCall {
 
   // Initiate url
   initUrl() {
-    // Call checkApiKey()
+    // Call checkApiKey() and checkOutput()
     let apikey,
         output;
     try {
