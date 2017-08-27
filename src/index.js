@@ -25,7 +25,7 @@ class OpenSecretsCall {
 
   // Init url
   initUrl() {
-    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=json`;
+    let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=${this.output}`;
     for (var prop in this.params) {
       url += `&${prop}=${this.params[prop]}`;
     }
