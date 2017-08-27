@@ -11,12 +11,22 @@ promise.polyfill();
 
 // Define api call class
 class OpenSecretsCall {
-  constructor(method, params, apikey) {
+  constructor(method, params, output, apikey) {
     this.apikey = apikey || process.env.OPENSECRETS_API_KEY;
-    this.output = 'json';
+    this.output = output || 'json';
     this.method = method;
     this.params = params;
     this.baseurl = 'http://www.opensecrets.org/api/';
+  }
+
+  // Check output
+  checkOutput(output) {
+    let validVals = ['json', 'xml'];
+    if (validVals.indexOf(output) === -1) {
+      throw new Error('Whoops! Output value is invalid');
+    } else {
+      return true;
+    }
   }
 
   // Check for api key
@@ -31,9 +41,11 @@ class OpenSecretsCall {
   // Initiate url
   initUrl() {
     // Call checkApiKey()
-    let apikey;
+    let apikey,
+        output;
     try {
       apikey = this.checkApiKey(this.apikey);
+      output = this.checkOutput(this.output);
     } catch (e) {
       console.log(`${e.name} : ${e.message}`);
     }
@@ -66,11 +78,26 @@ class OpenSecretsCall {
       return response.json();
     }
 
+    // Handle fetch response XML
+    const text = (response) => {
+      return response.text();
+    }
+
     // Fetch API
-    if (typeof url !== 'undefined') {
+    if (typeof url !== 'undefined' && this.output === 'json') { // JSON
       fetch(url)
       .then(status)
       .then(json)
+      .then((data) => {
+        console.log(`Request succeeded, \n${data}`);
+      })
+      .catch((err) => {
+        console.log(`Request failed, \n${err}`);
+      });
+    } else if (typeof url !== 'undefined' && this.output === 'xml') { // XML
+      fetch(url)
+      .then(status)
+      .then(text)
       .then((data) => {
         console.log(`Request succeeded, \n${data}`);
       })
