@@ -9,22 +9,34 @@ dotenv.config();
 // Init es-6 promise
 promise.polyfill();
 
-// Check for api key
-const apikey = process.env.OPENSECRETS_API_KEY;
-!apikey ? console.log('Warning: OpenSecrets API key required') : console.log('api key found');
-
 // Define api call class
 class OpenSecretsCall {
-  constructor(method, params) {
-    this.apikey = process.env.OPENSECRETS_API_KEY;
+  constructor(method, params, apikey) {
+    this.apikey = apikey || process.env.OPENSECRETS_API_KEY;
     this.output = 'json';
     this.method = method;
     this.params = params;
     this.baseurl = 'http://www.opensecrets.org/api/';
   }
 
-  // Init url
+  // Check for api key
+  checkApiKey(apikey) {
+    if (!apikey) {
+      throw new Error('Whoops! OpenSecrets API key required');
+    } else {
+      return true;
+    }
+  }
+
+  // Initiate url
   initUrl() {
+    // Call checkApiKey()
+    try {
+      const apikey = this.checkApiKey(this.apikey);
+    } catch (e) {
+      console.log(`${e.name} : ${e.message}`);
+    }
+
     let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=${this.output}`;
     for (var prop in this.params) {
       url += `&${prop}=${this.params[prop]}`;
@@ -33,10 +45,11 @@ class OpenSecretsCall {
     return url;
   }
 
+  // Get the data
   fetchData() {
     let url = this.initUrl();
 
-    // Handle response status
+    // Handle fetch response status
     const status = (response) => {
       if (response.status >= 200 && response.status < 300) {
         return Promise.resolve(response);
@@ -45,12 +58,12 @@ class OpenSecretsCall {
       }
     }
 
-    // Handle response JSON parsing
+    // Handle fetch response JSON parsing
     const json = (response) => {
       return response.json();
     }
 
-    // Request data
+    // Fetch API
     fetch(url)
     .then(status)
     .then(json)
