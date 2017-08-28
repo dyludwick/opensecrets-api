@@ -10,7 +10,7 @@ dotenv.config();
 promise.polyfill();
 
 // Define api call class
-class OpenSecretsCall {
+export default class OpenSecretsCall {
   constructor(method, params, output, apikey) {
     this.apikey = apikey || process.env.OPENSECRETS_API_KEY;
     this.output = output || 'json';
@@ -113,5 +113,5 @@ class OpenSecretsCall {
 // const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
 // getLegislators.fetchData();
 
-const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
-candSummary.fetchData();
+// const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+// candSummary.fetchData();
