@@ -7,7 +7,7 @@
     "build": "npm run clean && mkdirp dist && babel src -d dist",
     "clean": "rimraf dist",
     "start": "npm run build && node dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "keywords": [
     "opensecrets",
@@ -16,6 +16,7 @@
   "author": "Dylan Ross Ludwick",
   "license": "ISC",
   "devDependencies": {
+    "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "mkdirp": "^0.5.1",
