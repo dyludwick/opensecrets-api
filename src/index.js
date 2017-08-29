@@ -12,16 +12,17 @@ promise.polyfill();
 // Define api call class
 export default class OpenSecretsCall {
   constructor(method, params, output, apikey) {
-    this.apikey = apikey || process.env.OPENSECRETS_API_KEY;
-    this.output = output || 'json';
     this.method = method;
     this.params = params;
+    this.output = output || 'json';
+    this.apikey = apikey || process.env.OPENSECRETS_API_KEY;
     this.baseurl = 'http://www.opensecrets.org/api/';
   }
 
   // Check output
-  checkOutput(output) {
-    let validVals = ['json', 'xml'];
+  checkOutput() {
+    const output = this.output;
+    const validVals = ['json', 'xml'];
     if (validVals.indexOf(output) === -1) {
       throw new Error('Whoops! Output value is invalid');
     } else {
@@ -30,7 +31,8 @@ export default class OpenSecretsCall {
   }
 
   // Check for api key
-  checkApiKey(apikey) {
+  checkApiKey() {
+    const apikey = this.apikey;
     if (!apikey) {
       throw new Error('Whoops! OpenSecrets API key required');
     } else {
@@ -44,8 +46,8 @@ export default class OpenSecretsCall {
     let apikey,
         output;
     try {
-      apikey = this.checkApiKey(this.apikey);
-      output = this.checkOutput(this.output);
+      apikey = this.checkApiKey();
+      output = this.checkOutput();
     } catch (e) {
       console.log(`${e.name} : ${e.message}`);
     }
