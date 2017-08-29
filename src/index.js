@@ -53,7 +53,7 @@ export default class OpenSecretsCall {
     }
     // Build url
     if (apikey) {
-      let url = `${this.baseurl}?method=${this.method}&apikey=${this.apikey}&output=${this.output}`;
+      let url = `${this.baseurl}?method=${this.method}&output=${this.output}&apikey=${this.apikey}`;
       for (var prop in this.params) {
         url += `&${prop}=${this.params[prop]}`;
       }
