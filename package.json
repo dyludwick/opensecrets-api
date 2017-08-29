@@ -27,11 +27,13 @@
     "babel-polyfill": "^6.26.0",
     "dotenv": "^4.0.0",
     "es6-promise": "^4.1.1",
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "pify": "^3.0.0"
   },
   "ava": {
     "require": [
-      "babel-register"
+      "babel-register",
+      "babel-polyfill"
     ],
     "babel": "inherit"
   }
