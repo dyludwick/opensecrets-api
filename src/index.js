@@ -26,7 +26,7 @@ export default class OpenSecretsCall {
     if (validVals.indexOf(output) === -1) {
       throw new Error('Whoops! Output value is invalid');
     } else {
-      return true;
+      return output;
     }
   }
 
