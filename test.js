@@ -56,3 +56,18 @@ test('checkApiKey throws correct err when apikey undefined', async t => {
 
   t.is(error.message, 'Whoops! OpenSecrets API key required');
 });
+
+// initUrl() tests [2]
+test('initUrl fails to build url if checkApiKey throws err', async t => {
+  process.env.OPENSECRETS_API_KEY = '';
+  const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'}, '', '');
+
+  t.is(candSummary.initUrl(), undefined);
+});
+
+test('initUrl returns correct url val', async t => {
+  process.env.OPENSECRETS_API_KEY = 'apikey';
+  const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+
+  t.is(candSummary.initUrl(), 'http://www.opensecrets.org/api/?method=candSummary&output=json&apikey=apikey&cid=N00007360&cycle=2012')
+});
