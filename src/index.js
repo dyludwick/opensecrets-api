@@ -91,6 +91,7 @@ export default class OpenSecretsCall {
       .then(json)
       .then((data) => {
         console.log(`Request succeeded, \n${data}`);
+        return data;
       })
       .catch((err) => {
         console.log(`Request failed, \n${err}`);
@@ -101,6 +102,7 @@ export default class OpenSecretsCall {
       .then(text)
       .then((data) => {
         console.log(`Request succeeded, \n${data}`);
+        return data;
       })
       .catch((err) => {
         console.log(`Request failed, \n${err}`);
