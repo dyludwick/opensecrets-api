@@ -34,9 +34,9 @@ export default class OpenSecretsCall {
   checkApiKey() {
     const apikey = this.apikey;
     if (!apikey) {
-      throw new Error('Whoops! OpenSecrets API key required');
+      throw new TypeError('Whoops! OpenSecrets API key required');
     } else {
-      return true;
+      return apikey;
     }
   }
 
