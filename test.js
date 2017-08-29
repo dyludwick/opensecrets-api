@@ -1,5 +1,14 @@
 import test from 'ava';
 import OpenSecretsCall from './src/index';
+import { originalkey } from './config';
+import pify from 'pify';
+
+// Store original process.env.OPENSECRETS_API_KEY value
+
+
+test.before('check opensecrets_api_key val', async t => console.log(process.env.OPENSECRETS_API_KEY));
+
+test.afterEach('restore opensecrets_api_key val', async t => process.env.OPENSECRETS_API_KEY = originalkey);
 
 // checkOutput() test [1]
 test('checkOutput returns correct output val', async t => {
@@ -62,6 +71,7 @@ test('initUrl fails to build url if checkApiKey throws err', async t => {
   process.env.OPENSECRETS_API_KEY = '';
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'}, '', '');
 
+  // url undefined if no apikey specified
   t.is(candSummary.initUrl(), undefined);
 });
 
@@ -69,5 +79,33 @@ test('initUrl returns correct url val', async t => {
   process.env.OPENSECRETS_API_KEY = 'apikey';
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
 
+  //
   t.is(candSummary.initUrl(), 'http://www.opensecrets.org/api/?method=candSummary&output=json&apikey=apikey&cid=N00007360&cycle=2012')
 });
+
+// fetchData() tests
+test('fetchData fails to make request if url is undefined', async t => {
+  process.env.OPENSECRETS_API_KEY = '';
+  const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'}, '', '');
+
+  //
+  t.is(candSummary.fetchData(), undefined);
+});
+
+/*test('fetchData returns JSON obj when output specified as json', async t => {
+  process.env.OPENSECRETS_API_KEY = originalkey;
+  const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+
+  //
+  t.is(typeof await candSummary.fetchData(), 'object');
+});*/
+
+test('fetchData returns JSON obj when output specified as json', async t => {
+  process.env.OPENSECRETS_API_KEY = originalkey;
+  const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+  const key = await candSummary.fetchData();
+  //
+  t.is(key, '[object Object]');
+});
+
+test.after('check opensecrets_api_key val', async t => console.log(process.env.OPENSECRETS_API_KEY));
