@@ -24,7 +24,7 @@ export default class OpenSecretsCall {
     const output = this.output;
     const validVals = ['json', 'xml'];
     if (validVals.indexOf(output) === -1) {
-      throw new Error('Whoops! Output value is invalid');
+      throw new TypeError('Whoops! Output value is invalid');
     } else {
       return output;
     }
