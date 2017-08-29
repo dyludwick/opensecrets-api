@@ -1,5 +1,6 @@
 import test from 'ava';
+import OpenSecretsCall from './src/index';
 
-test('foo', t => {
+test('my passing test', t => {
   t.pass();
 });

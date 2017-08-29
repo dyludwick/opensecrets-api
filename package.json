@@ -19,6 +19,7 @@
     "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1"
   },
@@ -27,5 +28,11 @@
     "dotenv": "^4.0.0",
     "es6-promise": "^4.1.1",
     "isomorphic-fetch": "^2.2.1"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   }
 }
