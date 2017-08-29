@@ -57,7 +57,6 @@ export default class OpenSecretsCall {
       for (var prop in this.params) {
         url += `&${prop}=${this.params[prop]}`;
       }
-      console.log(`url: ${url}`);
       return url;
     }
   }
