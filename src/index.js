@@ -62,7 +62,7 @@ export default class OpenSecretsCall {
   }
 
   // Get the data
-  fetchData() {
+  async fetchData() {
     let url = this.initUrl();
 
     // Handle fetch response status
@@ -85,29 +85,37 @@ export default class OpenSecretsCall {
     }
 
     // Fetch API
-    if (typeof url !== 'undefined' && this.output === 'json') { // JSON
-      fetch(url)
-      .then(status)
-      .then(json)
-      .then((data) => {
-        console.log(`Request succeeded, \n${data}`);
-        return data;
-      })
-      .catch((err) => {
-        console.log(`Request failed, \n${err}`);
-      });
-    } else if (typeof url !== 'undefined' && this.output === 'xml') { // XML
-      fetch(url)
-      .then(status)
-      .then(text)
-      .then((data) => {
-        console.log(`Request succeeded, \n${data}`);
-        return data;
-      })
-      .catch((err) => {
-        console.log(`Request failed, \n${err}`);
-      });
-    }
+    const initFetch = new promise((resolve, reject) => {
+      if (typeof url !== 'undefined' && this.output === 'json') { // JSON
+        fetch(url)
+        .then(status)
+        .then(json)
+        .then((data) => {
+          console.log(`Request succeeded, \n${data}`);
+          resolve(data);
+        })
+        .catch((err) => {
+          console.log(`Request failed, \n${err}`);
+        });
+      } else if (typeof url !== 'undefined' && this.output === 'xml') { // XML
+        fetch(url)
+        .then(status)
+        .then(text)
+        .then((data) => {
+          console.log(`Request succeeded, \n${data}`);
+          return data;
+        })
+        .catch((err) => {
+          console.log(`Request failed, \n${err}`);
+        });
+      } else {
+        reject(new Error('fetch prevented'));
+      }
+    });
+    initFetch.then((successData) => {
+      console.log(successData);
+    });
+    return initFetch;
   }
 }
 
@@ -116,5 +124,5 @@ export default class OpenSecretsCall {
 // const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
 // getLegislators.fetchData();
 
-// const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
-// candSummary.fetchData();
+const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+candSummary.fetchData();
