@@ -82,7 +82,7 @@ test('initUrl returns correct url val', t => {
   process.env.OPENSECRETS_API_KEY = 'apikey';
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
 
-  //
+  // url built properly when apikey specified
   t.is(candSummary.initUrl(), 'http://www.opensecrets.org/api/?method=candSummary&output=json&apikey=apikey&cid=N00007360&cycle=2012')
 });
 
@@ -91,7 +91,8 @@ test('fetchData fails to make request if url is undefined', async t => {
   process.env.OPENSECRETS_API_KEY = '';
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'}, '', '');
   const data = candSummary.fetchData();
-  //
+
+  // no data returned
   t.is(data, undefined);
 });
 
