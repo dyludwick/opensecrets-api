@@ -92,16 +92,15 @@ test('fetchData fails to make request if url is undefined', async t => {
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'}, '', '');
   const data = await candSummary.fetchData();
 
-  // Throw err when apikey undefined
-  const error = await t.throws(data);
-  t.is(error.message, 'fetch prevented');
+  // Reject promise when apikey undefined
+  t.is(data, undefined);
 });
 
-test('fetchData returns JSON obj when output specified as json', async t => {
+test('fetchData returns obj when called', async t => {
   process.env.OPENSECRETS_API_KEY = originalkey;
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
   const data = await candSummary.fetchData();
 
-  //
+  // Resolve promise with fetch data
   t.is(typeof data, 'object');
 });
