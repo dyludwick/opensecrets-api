@@ -109,13 +109,18 @@ export default class OpenSecretsCall {
           console.log(`Request failed, \n${err}`);
         });
       } else {
-        reject(new Error('fetch prevented'));
+        reject('fetch prevented');
       }
     });
-    initFetch.then((successData) => {
-      console.log(successData);
-    });
-    return initFetch;
+
+    try {
+      let result = await initFetch;
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+
   }
 }
 
@@ -124,5 +129,5 @@ export default class OpenSecretsCall {
 // const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
 // getLegislators.fetchData();
 
-const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
-candSummary.fetchData();
+// const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
+// candSummary.fetchData();
