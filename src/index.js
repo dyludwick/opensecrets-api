@@ -1,13 +1,9 @@
 import 'babel-polyfill';
 import dotenv from 'dotenv';
-import promise from 'es6-promise';
 import 'isomorphic-fetch';
 
 // Config dotenv
 dotenv.config();
-
-// Init es-6 promise
-promise.polyfill();
 
 // Define api call class
 export default class OpenSecretsCall {
@@ -74,7 +70,7 @@ export default class OpenSecretsCall {
       }
     }
 
-    // Handle fetch response JSON parsing
+    // Handle fetch response JSON
     const json = (response) => {
       return response.json();
     }
