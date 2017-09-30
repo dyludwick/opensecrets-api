@@ -59,6 +59,7 @@ export default class OpenSecretsCall {
 
   // Get the data
   async fetchData() {
+    // Call initUrl()
     let url = this.initUrl();
 
     // Handle fetch response status
@@ -110,8 +111,7 @@ export default class OpenSecretsCall {
     });
 
     try {
-      let result = await initFetch;
-      console.log(result);
+      const result = await initFetch;
       return result;
     } catch (err) {
       console.log(err);
