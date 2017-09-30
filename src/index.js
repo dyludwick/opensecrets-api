@@ -24,7 +24,7 @@ export default class OpenSecretsCall {
     const output = this.output;
     const validVals = ['json', 'xml'];
     if (validVals.indexOf(output) === -1) {
-      throw new TypeError('Whoops! Output value is invalid');
+      throw new Error('Whoops! Output value is invalid');
     } else {
       return output;
     }
@@ -34,7 +34,7 @@ export default class OpenSecretsCall {
   checkApiKey() {
     const apikey = this.apikey;
     if (!apikey) {
-      throw new TypeError('Whoops! OpenSecrets API key required');
+      throw new Error('Whoops! OpenSecrets API key required');
     } else {
       return apikey;
     }
@@ -123,11 +123,3 @@ export default class OpenSecretsCall {
 
   }
 }
-
-// Test api call
-
-// const getLegislators = new OpenSecretsCall('getLegislators', 'NJ');
-// getLegislators.fetchData();
-
-// const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
-// candSummary.fetchData();
