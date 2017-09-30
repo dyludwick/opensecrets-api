@@ -33,7 +33,7 @@ test('checkOutput returns correct output val', async t => {
   // Throws error when output specified as invalid value
   const error = await t.throws(() => {
     candSummaryErr.checkOutput();
-  }, TypeError);
+  }, Error);
 
   t.is(error.message, 'Whoops! Output value is invalid');
 });
@@ -64,7 +64,7 @@ test('checkApiKey throws correct err when apikey undefined', async t => {
   // Throw err when apikey undefined
   const error = await t.throws(() => {
     candSummary.checkApiKey();
-  }, TypeError);
+  }, Error);
 
   t.is(error.message, 'Whoops! OpenSecrets API key required');
 });

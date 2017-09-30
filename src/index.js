@@ -85,7 +85,7 @@ export default class OpenSecretsCall {
     }
 
     // Fetch API
-    const initFetch = new promise((resolve, reject) => {
+    const initFetch = new Promise((resolve, reject) => {
       if (typeof url !== 'undefined' && this.output === 'json') { // JSON
         fetch(url)
         .then(status)
