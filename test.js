@@ -4,12 +4,12 @@ import { originalkey } from './config';
 import pify from 'pify';
 
 // Ensure apikey is properly set
-test.before('check opensecrets_api_key val', t => {
+test.before('check api key val', t => {
   t.truthy(process.env.OPENSECRETS_API_KEY);
 });
 
 // Re-set original process.env.OPENSECRETS_API_KEY value after each test
-test.afterEach('restore opensecrets_api_key val', t => process.env.OPENSECRETS_API_KEY = originalkey);
+test.afterEach('restore api key val', t => process.env.OPENSECRETS_API_KEY = originalkey);
 
 // checkOutput() test [1]
 test('checkOutput returns correct output val', async t => {
@@ -87,7 +87,7 @@ test('initUrl returns correct url val', t => {
 });
 
 // fetchData() tests
-test('fetchData fails to make request if url is undefined', async t => {
+test('fetchData prevents fetch request if url is undefined', async t => {
   process.env.OPENSECRETS_API_KEY = '';
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'}, '', '');
   const data = await candSummary.fetchData();
@@ -96,7 +96,7 @@ test('fetchData fails to make request if url is undefined', async t => {
   t.is(data, undefined);
 });
 
-test('fetchData returns obj when called', async t => {
+test('fetchData returns data obj when called successfully', async t => {
   process.env.OPENSECRETS_API_KEY = originalkey;
   const candSummary = new OpenSecretsCall('candSummary', { cid: 'N00007360', cycle: '2012'});
   const data = await candSummary.fetchData();
