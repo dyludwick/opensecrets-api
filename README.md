@@ -1,8 +1,8 @@
 # OpenSecrets API
 
-A simple library for the Center of Responsive Politics (CRP) OpenSecrets API. Their website currently features libraries for Python, PHP, and Ruby, so I figured this project would be a welcome addition for JavaScript users looking to play around with some political data.
+A simple client library for the Center of Responsive Politics (CRP) OpenSecrets API. Their website currently features libraries for Python, PHP, and Ruby, so I figured this project would be a welcome addition for JavaScript users looking to play around with some political data.
 
-Note: Use of the OpenSecrets.org API (Service) is provided free for educational, research, and non-commercial use. Commercial uses and republishing of data obtained obtained via this Service may involve a fee.
+**Note:** Use of the OpenSecrets.org API (Service) is provided free for educational, research, and non-commercial use. Commercial uses and republishing of data obtained obtained via this Service may involve a fee.
 
 For more information, visit: [https://www.opensecrets.org/resources/create/api_tos.php]
 
@@ -14,7 +14,7 @@ For more information, visit: [https://www.opensecrets.org/resources/create/api_t
 
 ## How to use
 
-NOTE: An OpenSecrets API key is required, and can be obtained on their [website](https://www.opensecrets.org/resources/create/apis.php)
+**Note:** An OpenSecrets API key is required, and can be obtained on their [website](https://www.opensecrets.org/resources/create/apis.php)
 
 The project file supplies an OpenSecretsCall class whose constructor accepts the following parameters:
 * method (required)
@@ -22,7 +22,7 @@ The project file supplies an OpenSecretsCall class whose constructor accepts the
 * output (optional - accepts 'json' or 'xml' - if not specified, defaults to json)
 * apikey (optional - if not specified, defaults to process.env.OPENSECRETS_API_KEY)
 
-It is *highly recommended* to store your API key in a .env file for security reasons:
+It is **_highly recommended_** to store your API key in a **.env** file for security reasons:
 ```
 .env
 
@@ -54,6 +54,6 @@ npm test
 
 ## Resources
 
-Opensecrets.org [https://www.opensecrets.org/]
+OpenSecrets.org [https://www.opensecrets.org/]
 
 OpenSecrets API Docs [https://www.opensecrets.org/resources/create/api_doc.php]
