@@ -29,7 +29,7 @@ It is *highly recommended* to store your API key in a .env file for security rea
 OPENSECRETS_API_KEY=Your-API-Key-Goes-Here
 ```
 
-To make a request, simply specify your method and params as follows:
+To make a request, simply specify your method and params as follows, then call fetchData method:
 
 ```javascript
 const OpenSecretsCall = require('/your/path/to/file');
@@ -46,7 +46,7 @@ For full API method documentation, check out the OpenSecrets API Docs link in th
 
 ## Testing
 
-To run tests with `ava`, navigate to project directory and
+To run tests with `ava`, navigate to project directory and run
 ```
 npm test
 ```
